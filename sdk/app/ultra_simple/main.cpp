@@ -210,7 +210,7 @@ std::vector<scanDot_Complication> _obj_move_log;
 std::vector<scanDot_Complication> _obj_semi_move[OBJ_SEMI_SIZE];
 
 MoveArea m_movearea;
-int _position = 1;  //ここの数字変える 0:104 中央 1:多目的 2:和室 3:配席付近 4:入口近く 5:プリンター手前 6:シスコの向かい 7:集中手前 99:111
+int _position = 1111;  //ここの数字変える 0:104 中央 1:多目的 2:和室 3:配席付近 4:入口近く 5:プリンター手前 6:シスコの向かい 7:集中手前 99:111
 int _UniqueId = _position * 100000;
 
 enum position_one {
@@ -241,6 +241,16 @@ enum position_seven {
     position_seven_X = 2500,
     position_seven_Y = -2100,
 };
+
+enum position_kc111one {
+    position_kc111one_X = -2250,
+    position_kc111one_Y = 2250,
+};
+enum position_kc111two {
+    position_kc111two_X = 2750,
+    position_kc111two_Y = -2750,
+};
+
 
 
 void OnObjSum(scanDot_Simple *objsum, float dist, float angle, bool IfTrueppElone) {
@@ -776,6 +786,8 @@ int main(int argc, const char * argv[]) {
                 else if (_position == 5) OnPositionGloble(position_five_X, position_five_Y, _obj_send);
                 else if (_position == 6) OnPositionGloble(position_six_X, position_six_Y, _obj_send);
                 else if (_position == 7) OnPositionGloble(position_seven_X, position_seven_Y, _obj_send);
+                else if (_position == 1111) OnPositionGloble(position_kc111one_X, position_kc111one_Y, _obj_send);
+                else if (_position == 1112) OnPositionGloble(position_kc111two_X, position_kc111two_Y, _obj_send);
                 
                 printf("番号：%d 角度：%03.2f 距離：%08.2f\n", _obj_send[i].uniqueid , _obj_send[i].angle , _obj_send[i].dist);
 
