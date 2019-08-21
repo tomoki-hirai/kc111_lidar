@@ -242,6 +242,17 @@ bool MoveArea::checkMoveArea(float distX, float distY, int area) {
 
 		return re_bool;
 	}
+    else if (area == 1112) {  //kc111
+		if (-3950 + position_kc111two_X < distX && distX < 3650 + position_kc111two_X ) {
+			if (-3000  - position_kc111two_Y < distY && distY < 2700  - position_kc111two_Y ) {
+				re_bool = true; //kc111の部屋の中かつ個別の静止物の中でない
+			}
+		}
+
+		if (2750 + position_kc111two_X  < distX && distX < 3750  + position_kc111two_X  && 2350  - position_kc111two_Y < distY && distY < 3220 - position_kc111two_Y ) re_bool = false;  //PC
+
+		return re_bool;
+	}
 	else {
 		return re_bool;
 	}
