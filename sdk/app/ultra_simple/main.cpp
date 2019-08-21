@@ -115,6 +115,48 @@ bool operator>(const scanDot_Complication& left, const scanDot_Complication& rig
 	return left.cnt > right.cnt;
 }
 
+int _position = 1111;  //ここの数字変える 0:104 中央 1:多目的 2:和室 3:配席付近 4:入口近く 5:プリンター手前 6:シスコの向かい 7:集中手前 99:111
+int _UniqueId = _position * 100000;
+
+enum position_one {
+    position_one_X = -6000,
+    position_one_Y = 2200,
+};
+enum position_two {
+    position_two_X = -5800,
+    position_two_Y = -2200,
+};
+enum position_three {
+    position_three_X = 3900,
+    position_three_Y = 3800,
+};
+enum position_four {
+    position_four_X = 2400,
+    position_four_Y = 1700,
+};
+enum position_five {
+    position_five_X = -2400,
+    position_five_Y = -2000,
+};
+enum position_six {
+    position_six_X = 2100,
+    position_six_Y = 2000,
+};
+enum position_seven {
+    position_seven_X = 2500,
+    position_seven_Y = -2100,
+};
+
+enum position_kc111one {
+    position_kc111one_X = 2250,
+    position_kc111one_Y = 2250,
+};
+enum position_kc111two {
+    position_kc111two_X = 2750,
+    position_kc111two_Y = -2750,
+};
+
+
 class MoveArea
 {
 public:
@@ -188,9 +230,22 @@ bool MoveArea::checkMoveArea(float distX, float distY, int area) {
 			}
 		}
 		return re_bool;
-	}else {
+	}
+    else if (area == 1111) {  //kc111
+		if (-3950 + position_kc111one_X < distX && distX < 3650 + position_kc111one_X ) {
+			if (-3000  - position_kc111one_Y < distY && distY < 2700  - position_kc111one_Y ) {
+				re_bool = true; //kc111の部屋の中かつ個別の静止物の中でない
+			}
+		}
+
+		if (2750 + position_kc111one_X  < distX && distX < 3750  + position_kc111one_X  && 2350  - position_kc111one_Y < distY && distY < 3220 - position_kc111one_Y ) re_bool = false;  //PC
+
 		return re_bool;
 	}
+	else {
+		return re_bool;
+	}
+    
 }
 
 const float PI   = (float)3.14159265;
@@ -210,46 +265,6 @@ std::vector<scanDot_Complication> _obj_move_log;
 std::vector<scanDot_Complication> _obj_semi_move[OBJ_SEMI_SIZE];
 
 MoveArea m_movearea;
-int _position = 1111;  //ここの数字変える 0:104 中央 1:多目的 2:和室 3:配席付近 4:入口近く 5:プリンター手前 6:シスコの向かい 7:集中手前 99:111
-int _UniqueId = _position * 100000;
-
-enum position_one {
-    position_one_X = -6000,
-    position_one_Y = 2200,
-};
-enum position_two {
-    position_two_X = -5800,
-    position_two_Y = -2200,
-};
-enum position_three {
-    position_three_X = 3900,
-    position_three_Y = 3800,
-};
-enum position_four {
-    position_four_X = 2400,
-    position_four_Y = 1700,
-};
-enum position_five {
-    position_five_X = -2400,
-    position_five_Y = -2000,
-};
-enum position_six {
-    position_six_X = 2100,
-    position_six_Y = 2000,
-};
-enum position_seven {
-    position_seven_X = 2500,
-    position_seven_Y = -2100,
-};
-
-enum position_kc111one {
-    position_kc111one_X = -2250,
-    position_kc111one_Y = 2250,
-};
-enum position_kc111two {
-    position_kc111two_X = 2750,
-    position_kc111two_Y = -2750,
-};
 
 
 
