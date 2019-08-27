@@ -150,12 +150,12 @@ enum position_seven {
 };
 
 enum position_kc111one {
-    position_kc111one_X = 2250,
-    position_kc111one_Y = 2250,
+    position_kc111one_X = 3000,
+    position_kc111one_Y = 1800,
 };
 enum position_kc111two {
-    position_kc111two_X = 2750,
-    position_kc111two_Y = -2750,
+    position_kc111two_X = 3000,
+    position_kc111two_Y = -2400,
 };
 
 
