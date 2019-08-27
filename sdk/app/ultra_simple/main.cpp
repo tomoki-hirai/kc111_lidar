@@ -409,10 +409,8 @@ int readPosition(){
         std::cerr << "position.txtが見つかりません" << std::endl;
         return 1;
     }
-    while (getline(ifs, str))
-    {
-        std::cout << "[" << str << "]" << std::endl;
-    }
+    getline(ifs, str);
+    std::cout << "[" << str << "]" << std::endl;
     int num = atoi(str.c_str());
     return num;
 }
