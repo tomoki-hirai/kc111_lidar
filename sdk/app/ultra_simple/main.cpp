@@ -39,7 +39,7 @@
 #include <time.h>
 #include <string.h>
 #include <iostream>
-
+#include <fstream>
 
 #include "rplidar.h" //RPLIDAR standard sdk, all-in-one header
 
@@ -115,6 +115,8 @@ bool operator>(const scanDot_Complication& left, const scanDot_Complication& rig
 	return left.cnt > right.cnt;
 }
 
+
+// ファイル読み込みに変更（position.txtに記述）
 int _position = 1111;  //ここの数字変える 0:104 中央 1:多目的 2:和室 3:配席付近 4:入口近く 5:プリンター手前 6:シスコの向かい 7:集中手前 99:111
 int _UniqueId = _position * 100000;
 
@@ -232,25 +234,26 @@ bool MoveArea::checkMoveArea(float distX, float distY, int area) {
 		return re_bool;
 	}
     else if (area == 1111) {  //kc111
-		if (-3950 + position_kc111one_X < distX && distX < 3650 + position_kc111one_X ) {
+		if (-3900 + position_kc111one_X < distX && distX < 3500 + position_kc111one_X ) {
 			if (-3000  - position_kc111one_Y < distY && distY < 2700  - position_kc111one_Y ) {
 				re_bool = true; //kc111の部屋の中かつ個別の静止物の中でない
 			}
 		}
 
 		if (2750 + position_kc111one_X  < distX && distX < 3750  + position_kc111one_X  && 2350  - position_kc111one_Y < distY && distY < 3220 - position_kc111one_Y ) re_bool = false;  //PC
-
+        if (-3900 + position_kc111one_X < distX && distX < -3000 + position_kc111one_X && 1050 - position_kc111one_Y < distY && distY < 2700 - position_kc111one_Y) re_bool = false;  //椅子
 		return re_bool;
 	}
     else if (area == 1112) {  //kc111
-		if (-3950 + position_kc111two_X < distX && distX < 3650 + position_kc111two_X ) {
+		if (-3900 + position_kc111two_X < distX && distX < 3500 + position_kc111two_X ) {
 			if (-3000  - position_kc111two_Y < distY && distY < 2700  - position_kc111two_Y ) {
 				re_bool = true; //kc111の部屋の中かつ個別の静止物の中でない
 			}
 		}
 
 		if (2750 + position_kc111two_X  < distX && distX < 3750  + position_kc111two_X  && 2350  - position_kc111two_Y < distY && distY < 3220 - position_kc111two_Y ) re_bool = false;  //PC
-
+        if (-3900 + position_kc111two_X < distX && distX < -3000 + position_kc111two_X && 1050 - position_kc111two_Y < distY && distY < 2700 - position_kc111two_Y) re_bool = false;  //椅子
+		
 		return re_bool;
 	}
 	else {
@@ -398,7 +401,27 @@ void ctrlc(int)
     ctrl_c_pressed = true;
 }
 
+int readPosition(){
+    std::ifstream ifs("./position.txt");
+    std::string str;
+    if (ifs.fail())
+    {
+        std::cerr << "position.txtが見つかりません" << std::endl;
+        return 1;
+    }
+    while (getline(ifs, str))
+    {
+        std::cout << "[" << str << "]" << std::endl;
+    }
+    int num = atoi(str.c_str());
+    return num;
+}
+
 int main(int argc, const char * argv[]) {
+    printf("%d",_position);
+    _position = readPosition();
+    _UniqueId = _position * 100000;
+    printf("%d",_position);
     const char * opt_com_path = NULL;
     _u32         opt_com_baudrate = 115200;
     u_result     op_result;
