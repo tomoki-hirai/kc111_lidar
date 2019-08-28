@@ -157,6 +157,10 @@ enum position_kc111two {
     position_kc111two_X = -3000,
     position_kc111two_Y = -2400,
 };
+enum position_kc111three {
+    position_kc111three_X = 1800,
+    position_kc111three_Y = 200,
+};
 
 
 class MoveArea
@@ -176,6 +180,15 @@ MoveArea::~MoveArea()
 bool MoveArea::checkMoveArea(float distX, float distY, int area) {
 	//条件の中ならTure,
 	bool re_bool = false;
+
+    // kc111のグリッドの大きさ
+    int grid_x = 3680;
+    int grid_y = 3040;
+    //左側の余白
+    int left_margin = 280;
+    //左下の窪地
+    int left_holl = 220;
+
 	if (area == 0) {
 		if (-6300 < distX && distX < 8900) {  //kc104の部屋の中
 			if (-4400 < distY && distY < 4000) {
@@ -234,28 +247,85 @@ bool MoveArea::checkMoveArea(float distX, float distY, int area) {
 		return re_bool;
 	}
     else if (area == 1111) {  //kc111
-		if (-3900 + position_kc111one_X < distX && distX < 3500 + position_kc111one_X ) {
-			if (-3000  - position_kc111one_Y < distY && distY < 2700  - position_kc111one_Y ) {
-				re_bool = true; //kc111の部屋の中かつ個別の静止物の中でない
-			}
-		}
+		// if (-3900 + position_kc111one_X < distX && distX < 3500 + position_kc111one_X ) {
+		// 	if (-3000  - position_kc111one_Y < distY && distY < 2700  - position_kc111one_Y ) {
+		// 		re_bool = true; //kc111の部屋の中かつ個別の静止物の中でない
+		// 	}
+		// }
+        float x_min = -grid_x - left_margin + 100 + position_kc111one_X;
+        float x_max = grid_x - 200 + position_kc111one_X;
 
-		if (2750 + position_kc111one_X  < distX && distX < 3750  + position_kc111one_X  && 2350  - position_kc111one_Y < distY && distY < 3220 - position_kc111one_Y ) re_bool = false;  //PC
-        if (-3900 + position_kc111one_X < distX && distX < -3000 + position_kc111one_X && 1050 - position_kc111one_Y < distY && distY < 2700 - position_kc111one_Y) re_bool = false;  //椅子
+        float y_min = -grid_y - position_kc111one_Y + 100;
+        float y_max = grid_y - position_kc111one_Y - 800;
+
+        if(x_min < distX && distX < x_max){
+            if(y_min < distY && distY < y_max){
+                re_bool = true;
+                printf("X:%f < %f\n",x_min,x_max);
+                printf("Y:%f < %f\n",y_min,y_max);
+                printf("check:%f,%f\n",distX,distY);
+            }
+        }
+
+        // if (-grid_x - left_margin + 100 + position_kc111one_X < distX && distX < grid_x - 200 + position_kc111one_X ) {
+		// 	if (-grid_y - position_kc111one_Y + 200 < distY && distY < grid_y - position_kc111one_Y - 800) {
+		// 		re_bool = true; //kc111の部屋の中かつ個別の静止物の中でない
+		// 	}
+		// }
+        // int temp_num = grid_y - position_kc111one_Y - 800;
+        // printf("%d\n",temp_num);
+
+
+
+		// if (2750 + position_kc111one_X  < distX && distX < 3750  + position_kc111one_X  && 2350  - position_kc111one_Y < distY && distY < 3220 - position_kc111one_Y ) re_bool = false;  //PC
+        // if (-3900 + position_kc111one_X < distX && distX < -3000 + position_kc111one_X && 1050 - position_kc111one_Y < distY && distY < 2700 - position_kc111one_Y) re_bool = false;  //椅子
+
+        if (grid_x - 1000 + position_kc111one_X < distX && distX < grid_x + position_kc111one_X && grid_y - 1200 + position_kc111one_Y < distY && distY < grid_y + position_kc111one_Y) re_bool = false;  //PC
+        if (-grid_x - 1000 + position_kc111one_X < distX && distX < -grid_x + 500 + position_kc111one_X && grid_y - 1800 + position_kc111one_Y < distY && distY < grid_y + position_kc111one_Y) re_bool = false;  //椅子
+        
+        //棚
+        // if (-grid_x + 300  + position_kc111one_X < distX && distX < -grid_x + 1100 + position_kc111one_X){
+        //     if(grid_y - 500 - position_kc111one_Y < distY && distY < grid_y - position_kc111one_Y){
+        //         re_bool = false;
+        //     }
+        // }
 		return re_bool;
 	}
     else if (area == 1112) {  //kc111
-		if (-3900 + position_kc111two_X < distX && distX < 3500 + position_kc111two_X ) {
-			if (-3000  - position_kc111two_Y < distY && distY < 2700  - position_kc111two_Y ) {
+		// if (-3900 + position_kc111two_X < distX && distX < 3500 + position_kc111two_X ) {
+		// 	if (-3000  - position_kc111two_Y < distY && distY < 2700  - position_kc111two_Y ) {
+		// 		re_bool = true; //kc111の部屋の中かつ個別の静止物の中でない
+		// 	}
+		// }
+
+       if (-grid_x - left_margin + 100 + position_kc111two_X < distX && distX < grid_x - 100 + position_kc111two_X ) {
+			if (-grid_y - position_kc111two_Y < distY && distY < grid_y - position_kc111two_Y ) {
 				re_bool = true; //kc111の部屋の中かつ個別の静止物の中でない
 			}
 		}
 
-		if (2750 + position_kc111two_X  < distX && distX < 3750  + position_kc111two_X  && 2350  - position_kc111two_Y < distY && distY < 3220 - position_kc111two_Y ) re_bool = false;  //PC
-        if (-3900 + position_kc111two_X < distX && distX < -3000 + position_kc111two_X && 1050 - position_kc111two_Y < distY && distY < 2700 - position_kc111two_Y) re_bool = false;  //椅子
+		// if (2750 + position_kc111two_X  < distX && distX < 3750  + position_kc111two_X  && 2350  - position_kc111two_Y < distY && distY < 3220 - position_kc111two_Y ) re_bool = false;  //PC
+        // if (-3900 + position_kc111two_X < distX && distX < -3000 + position_kc111two_X && 1050 - position_kc111two_Y < distY && distY < 2700 - position_kc111two_Y) re_bool = false;  //椅子
 		
+        if (grid_x - 1000 + position_kc111two_X < distX && distX < grid_x + position_kc111two_X && grid_y - 1200 + position_kc111two_Y < distY && distY < grid_y + position_kc111two_Y) re_bool = false;  //PC
+        if (-grid_x - 1000 + position_kc111two_X < distX && distX < -grid_x + 500 + position_kc111two_X && grid_y - 1800 + position_kc111two_Y < distY && distY < grid_y + position_kc111two_Y) re_bool = false;  //椅子
+        if (-grid_x + 100 + position_kc111two_X < distX && distX < -grid_x + 900 + position_kc111two_X && grid_y - 500 + position_kc111two_Y < distY && distY < grid_y + position_kc111two_Y) re_bool = false;  //棚
+
 		return re_bool;
 	}
+    else if (area == 2000) {  //kc111 在離席
+    if (-grid_x - left_margin - position_kc111three_X < distX && distX < grid_x + position_kc111three_X) {
+        if (-grid_y - position_kc111three_Y < distY && distY < grid_y + position_kc111three_Y) {
+        re_bool = true; //kc111の部屋の中かつ個別の静止物の中でない
+        }
+    }
+
+    if (grid_x - 1000 + position_kc111three_X < distX && distX < grid_x + position_kc111three_X && grid_y - 1200 + position_kc111three_Y < distY && distY < grid_y + position_kc111three_Y) re_bool = false;  //PC
+    if (-grid_x - 1000 + position_kc111three_X < distX && distX < -grid_x + 500 + position_kc111three_X && grid_y - 1800 + position_kc111three_Y < distY && distY < grid_y + position_kc111three_Y) re_bool = false;  //椅子
+    if (-grid_x + 100 + position_kc111three_X < distX && distX < -grid_x + 900 + position_kc111three_X && grid_y - 400 + position_kc111three_Y < distY && distY < grid_y + position_kc111three_Y) re_bool = false;  //棚
+
+    return re_bool;
+    }
 	else {
 		return re_bool;
 	}
@@ -584,6 +654,7 @@ int main(int argc, const char * argv[]) {
                     }
                 }
             }
+            //printf("objsum:%d",objsum.size());
 
             //取得した極座標のうち最後を最初の極座標と合わせるように計算処理
             else if (pos == (int)_scan_data[0].size() - 1 && _obj_center[0].size() > 0) {
@@ -636,6 +707,7 @@ int main(int argc, const char * argv[]) {
                 }
             }
         }
+         printf("ovjcenter:%d\n", _obj_center[0].size());
         //_scan_dataを_obj_centerに変換終了
 
 
@@ -664,6 +736,7 @@ int main(int argc, const char * argv[]) {
                     std::cout << e.what() << std::endl;
                 }
             }
+            printf("a:%d\n",_obj_move[0].size());
             
             //_obj_centerと_obj_moveを対応づけ
             for (int j = 0; j < _obj_move[0].size() ; ++j) {
@@ -759,7 +832,7 @@ int main(int argc, const char * argv[]) {
                     pop_back_cnt++;  //削除する個数
                 }
             }
-            
+             printf("d:%d\n",_obj_move[0].size());
             //未使用の_obj_moveと条件を満たした_obj_semi_moveを対応づけ，出来なければ_obj_moveを新規生成
             for (int j = 0; j < (int)buffsemi.size(); j++) {  
                 float distance;
@@ -798,6 +871,7 @@ int main(int argc, const char * argv[]) {
                 _obj_semi_move[0][buffsemi[j].j].cnt = 1000;  //削除処理用
                 pop_back_cnt++;  //削除する個数
             }
+            printf("c:%d\n",_obj_move[0].size());
             
             std::sort(_obj_semi_move[0].begin(), _obj_semi_move[0].end());
             for (int i = pop_back_cnt; i > 0; --i) {
@@ -822,6 +896,7 @@ int main(int argc, const char * argv[]) {
                         
             //_obj_moveを_obj_sendに変換開始            
             std::vector<scanDot_Complication> _obj_send;
+            memset(bufall,0,sizeof(bufall));
             for (int i = 0; i < (int)_obj_move[0].size(); ++i) {
                 _obj_send.push_back(_obj_move[0][i]);  //sendデータ作成
                 
@@ -836,7 +911,7 @@ int main(int argc, const char * argv[]) {
                 else if (_position == 1111) OnPositionGloble(position_kc111one_X, position_kc111one_Y, _obj_send);
                 else if (_position == 1112) OnPositionGloble(position_kc111two_X, position_kc111two_Y, _obj_send);
                 
-                printf("番号：%d 角度：%03.2f 距離：%08.2f\n", _obj_send[i].uniqueid , _obj_send[i].angle , _obj_send[i].dist);
+                //printf("番号：%d 角度：%03.2f 距離：%08.2f\n", _obj_send[i].uniqueid , _obj_send[i].angle , _obj_send[i].dist);
 
                 bufuniqueid = _obj_send[i].uniqueid;
                 bufdist = _obj_send[i].dist;
@@ -852,6 +927,7 @@ int main(int argc, const char * argv[]) {
                 }
 
             }
+            printf("%s\n",bufall);
             send(sockfd,(const char *)(&bufall),sizeof(bufall),0);
 
             //_obj_moveを_obj_sendに変換終了
@@ -864,7 +940,6 @@ int main(int argc, const char * argv[]) {
             
             _scan_data[0].clear();
             _obj_center[0].clear();
-            
             //_obj_moveの処理
             for (int i = OBJ_MOVE_SIZE - 1; i > 1; --i) { //1～9まで
                 _obj_move[i].swap(_obj_move[i - 1]);
