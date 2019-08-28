@@ -943,7 +943,7 @@ int main(int argc, const char * argv[]) {
                 else if (_position == 7) OnPositionGloble(position_seven_X, position_seven_Y, _obj_send);
                 else if (_position == 1111) OnPositionGloble(position_kc111one_X, position_kc111one_Y, _obj_send);
                 else if (_position == 1112) OnPositionGloble(position_kc111two_X, position_kc111two_Y, _obj_send);
-                else if (_position == 2000) OnPositionGloble(position_kc111two_X, position_kc111two_Y, _obj_send);
+                else if (_position == 2000) OnPositionGloble(position_kc111three_X, position_kc111three_Y, _obj_send);
                 
                 //printf("番号：%d 角度：%03.2f 距離：%08.2f\n", _obj_send[i].uniqueid , _obj_send[i].angle , _obj_send[i].dist);
 
