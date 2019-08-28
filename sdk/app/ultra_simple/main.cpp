@@ -351,9 +351,16 @@ bool MoveArea::checkMoveArea(float distX, float distY, int area) {
     //     }
     // }
 
-    if (grid_x - 1000 + position_kc111three_X < distX && distX < grid_x + position_kc111three_X && grid_y - 1200 + position_kc111three_Y < distY && distY < grid_y + position_kc111three_Y) re_bool = false;  //PC
-    if (-grid_x - 1000 + position_kc111three_X < distX && distX < -grid_x + 500 + position_kc111three_X && grid_y - 1800 + position_kc111three_Y < distY && distY < grid_y + position_kc111three_Y) re_bool = false;  //椅子
-    if (-grid_x + 100 + position_kc111three_X < distX && distX < -grid_x + 900 + position_kc111three_X && grid_y - 400 + position_kc111three_Y < distY && distY < grid_y + position_kc111three_Y) re_bool = false;  //棚
+    // 椅子
+    if(x_min < distX && distX < x_min + 700){
+            if(y_max - 2000 < distY && distY < y_max){
+                re_bool = false;
+            }
+        }
+
+    //if (grid_x - 1000 + position_kc111three_X < distX && distX < grid_x + position_kc111three_X && grid_y - 1200 + position_kc111three_Y < distY && distY < grid_y + position_kc111three_Y) re_bool = false;  //PC
+    //if (-grid_x - 1000 + position_kc111three_X < distX && distX < -grid_x + 500 + position_kc111three_X && grid_y - 1800 + position_kc111three_Y < distY && distY < grid_y + position_kc111three_Y) re_bool = false;  //椅子
+    //if (-grid_x + 100 + position_kc111three_X < distX && distX < -grid_x + 900 + position_kc111three_X && grid_y - 400 + position_kc111three_Y < distY && distY < grid_y + position_kc111three_Y) re_bool = false;  //棚
 
     return re_bool;
     }
