@@ -261,9 +261,9 @@ bool MoveArea::checkMoveArea(float distX, float distY, int area) {
         if(x_min < distX && distX < x_max){
             if(y_min < distY && distY < y_max){
                 re_bool = true;
-                printf("X:%f < %f\n",x_min,x_max);
-                printf("Y:%f < %f\n",y_min,y_max);
-                printf("check:%f,%f\n",distX,distY);
+                // printf("X:%f < %f\n",x_min,x_max);
+                // printf("Y:%f < %f\n",y_min,y_max);
+                // printf("check:%f,%f\n",distX,distY);
             }
         }
 
@@ -339,7 +339,7 @@ const int OBJ_SEMI_SIZE = 1;
 const int OBJ_MOVE_SIZE = 40;
 const int OBJ_MOVE_FEW = 10;
 const int OBJ_MOVE_MANY = 100;
-const int MINIMUM_ELE_NUM = 2;
+const int MINIMUM_ELE_NUM = 3;
 const int DEF_DISTANCE = 300;
 
 std::vector<scanDot> _scan_data[SCAN_DATA_SIZE];
@@ -645,21 +645,20 @@ int main(int argc, const char * argv[]) {
                     else                 OnObjSum(&objsum, dist, angle, true);
                 }
                 else {
-                    if (objsum.cnt < MINIMUM_ELE_NUM && pos >= MINIMUM_ELE_NUM) {		//点の数が一定以下のとき，カウントしない
+                    // if (objsum.cnt < MINIMUM_ELE_NUM && pos >= MINIMUM_ELE_NUM) {		//点の数が一定以下のとき，カウントしない
+                    if (objsum.cnt < MINIMUM_ELE_NUM) {		//点の数が一定以下のとき，カウントしない
                         objsum.cnt = 0; //flag
                     }
                     else {
-                        OnObjSum(&objsum, dist, angle, true);
+                        //OnObjSum(&objsum, dist, angle, true);
                         OnObjCenterPush(&objsum);
                     }
                 }
             }
-            //printf("objsum:%d",objsum.size());
-
             //取得した極座標のうち最後を最初の極座標と合わせるように計算処理
             else if (pos == (int)_scan_data[0].size() - 1 && _obj_center[0].size() > 0) {
-                if (objsum.cnt == 0) OnObjSum(&objsum, dist, angle, false);
-                else                 OnObjSum(&objsum, dist, angle, true);
+               // if (objsum.cnt == 0) OnObjSum(&objsum, dist, angle, false);
+               // else                 OnObjSum(&objsum, dist, angle, true);
 
                 OnObjCenterPush(&objsum);
                 
@@ -707,7 +706,6 @@ int main(int argc, const char * argv[]) {
                 }
             }
         }
-         printf("ovjcenter:%d\n", _obj_center[0].size());
         //_scan_dataを_obj_centerに変換終了
 
 
@@ -736,7 +734,6 @@ int main(int argc, const char * argv[]) {
                     std::cout << e.what() << std::endl;
                 }
             }
-            printf("a:%d\n",_obj_move[0].size());
             
             //_obj_centerと_obj_moveを対応づけ
             for (int j = 0; j < _obj_move[0].size() ; ++j) {
@@ -832,7 +829,6 @@ int main(int argc, const char * argv[]) {
                     pop_back_cnt++;  //削除する個数
                 }
             }
-             printf("d:%d\n",_obj_move[0].size());
             //未使用の_obj_moveと条件を満たした_obj_semi_moveを対応づけ，出来なければ_obj_moveを新規生成
             for (int j = 0; j < (int)buffsemi.size(); j++) {  
                 float distance;
@@ -871,7 +867,6 @@ int main(int argc, const char * argv[]) {
                 _obj_semi_move[0][buffsemi[j].j].cnt = 1000;  //削除処理用
                 pop_back_cnt++;  //削除する個数
             }
-            printf("c:%d\n",_obj_move[0].size());
             
             std::sort(_obj_semi_move[0].begin(), _obj_semi_move[0].end());
             for (int i = pop_back_cnt; i > 0; --i) {
