@@ -159,7 +159,7 @@ enum position_kc111two {
 };
 enum position_kc111three {
     position_kc111three_X = 1800,
-    position_kc111three_Y = 200,
+    position_kc111three_Y = -200,
 };
 
 
