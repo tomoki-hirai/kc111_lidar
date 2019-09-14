@@ -1,2 +1,2 @@
 cd ~/kc111_lidar/sdk/output/Linux/Release/
-./ultra_simple
+screen -S lidar ./ultra_simple
