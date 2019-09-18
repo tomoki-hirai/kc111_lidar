@@ -10,7 +10,7 @@
 ### crontabの設定
 - MTAがないのでインストール sudo apt-get install postfix
 - crontab -e で設定ファイルを開く
-- *@reboot sh /home/pi/kc111_lidar/start.sh > /home/pi/cron_log.txt*を末尾に追加
+- *@reboot /home/pi/kc111_lidar/start.sh > /home/pi/cron_log.txt*を末尾に追加
  
  
  
